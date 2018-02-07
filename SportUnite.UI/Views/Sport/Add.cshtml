@@ -1,0 +1,28 @@
+﻿@model Sport
+
+@{
+    ViewData["Title"] = "Sport Toevoegen";
+}
+
+
+
+<div class="row">
+	<div class="col s12 l10 xl8 offset-l1 offset-xl2">
+		<div class="card-panel">
+			<form asp-action="Add" method="post">
+				<div class="row">
+					<div class="input-field col s12">
+						<label asp-for="Name">Sportnaam</label>
+						<input asp-for="Name" type="text"/>
+						<span asp-validation-for="Name" class="red-text"></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<button class="waves-effect btn col s12 m4 right" type="submit">Toevoegen</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

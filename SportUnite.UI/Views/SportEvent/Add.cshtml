@@ -1,0 +1,87 @@
+﻿@using System.Globalization
+@model AddSportEventViewModel
+
+@if (TempData.ContainsKey("notification"))
+{
+	<div class="notification-hidden-container" data-message="@TempData["notification"]"></div>
+}
+
+
+
+<div class="row">
+	<div class="col s12 l10 xl8 offset-l1 offset-xl2">
+		<div class="card-panel">
+			<form asp-action="Add" method="post">
+				<input asp-for="SportEvent.SportEventId" name="SportEvent.SportEventId" value="0" type="hidden" />
+				<div class="row">
+					<div class="input-field col s12">
+						<label class="form-select" asp-for="SportEvent.Name">Sporteventnaam</label>
+						<input asp-for="SportEvent.Name" name="SportEvent.Name" type="text"/>
+						<span asp-validation-for="SportEvent.Name" class="red-text"></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+
+						@Html.Label("SportId", "")
+						@Html.DropDownListFor(m => m.SportEvent.SportId, new SelectList(Model.Sports, "SportId", "Name"), "Kies een sport")
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<label asp-for="SportEvent.EventStartTime"> Datum </label>
+						<input asp-for="SportEvent.EventStartTime" type="text" name="SportEvent.EventStartTime.Date" class="datepicker" placeholder="Kies een datum" value="@(Model.SportEvent == null ? "" : Model.SportEvent.EventStartTime.ToString("d MMMM yyyy", new CultureInfo("nl-NL")))"/>
+						<span asp-validation-for="SportEvent.EventStartTime" class="red-text"></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<label asp-for="SportEvent.EventStartTime"> Starttijd </label>
+						<input asp-for="SportEvent.EventStartTime" type="text" name="SportEvent.EventStartTime.Time" class="timepicker" placeholder="Kies een begintijd" value="@(Model.SportEvent == null ? "" : Model.SportEvent.EventStartTime.ToString("H:mm", new CultureInfo("nl-NL")))"/>
+						<span asp-validation-for="SportEvent.EventStartTime" class="red-text"></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<label asp-for="SportEvent.EventEndTime"> Eindtijd </label>
+						<input asp-for="SportEvent.EventEndTime" type="text" name="SportEvent.EventEndTime.Time" class="timepicker" placeholder="Kies een eindtijd" value="@(Model.SportEvent == null ? "" : Model.SportEvent.EventEndTime.ToString("H:mm", new CultureInfo("nl-NL")))" />
+						<span asp-validation-for="SportEvent.EventEndTime" class="red-text"></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<label asp-for="SportEvent.MinAttendees">Min. aantal deelnemers</label>
+						<p class="range-field">
+							<input asp-for="SportEvent.MinAttendees" name="SportEvent.MinAttendees" type="range" min="2" max="15"/>
+							<span asp-validation-for="SportEvent.MinAttendees" class="red-text"></span>
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<label asp-for="SportEvent.MaxAttendees">Max. aantal deelnemers</label>
+						<p class="range-field">
+
+							<input asp-for="SportEvent.MaxAttendees" name="SportEvent.MaxAttendees" type="range" min="4" max="30"/>
+							<span asp-validation-for="SportEvent.MaxAttendees" class="red-text"></span>
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<label asp-for="SportEvent.Description">Description</label>
+						<textarea asp-for="SportEvent.Description" name="SportEvent.Description" class="materialize-textarea"></textarea>
+						<span asp-validation-for="SportEvent.Description" class="red-text"></span>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col s12">
+						<button class="waves-effect btn col s12 m4 right" type="submit">Toevoegen</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+

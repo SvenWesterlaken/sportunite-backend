@@ -1,0 +1,37 @@
+﻿<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Admin | @ViewData["Title"]</title>
+	<link rel="stylesheet" href="~/css/main.min.css" />
+</head>
+<body>
+	<div class="admin-panel">
+		<nav class="side-admin-menu">
+			<ul>
+				<li class="nav-header"><h2 class="subheader invert">SportUnite</h2></li>
+				<li><a asp-action="Index" asp-controller="Home"><i class="mdi mdi-24px mdi-speedometer"></i> Dashboard</a></li>
+				<li><a asp-action="Index" asp-controller="SportEvent"><i class="mdi mdi-24px mdi-calendar-text"></i> Evenementen</a></li>
+				<li><a asp-action="Index" asp-controller="Building"><i class="mdi mdi-24px mdi-domain"></i> Sportgebouwen</a></li>
+				<li><a asp-action="Index" asp-controller="Hall"><i class="mdi mdi-24px mdi-locker-multiple"></i> Zalen</a></li>
+				<li><a asp-action="Index" asp-controller="Reservation"><i class="mdi mdi-24px mdi-calendar-check"></i> Reserveringen</a></li>
+				<li><a asp-action="Index" asp-controller="Invoice"><i class="mdi mdi-24px mdi-cash-multiple"></i> Facturen</a></li>
+				<li><a asp-action="Index" asp-controller="Sport"><i class="mdi mdi-24px mdi-football"></i> Sporten</a></li>
+				<li><a asp-action="Index" asp-controller="Home"><i class="mdi mdi-24px mdi-account"></i> Accounts</a></li>
+				<li><a asp-action="Index" asp-controller="Home"><i class="mdi mdi-24px mdi-file-document-box"></i> Logs</a></li>
+				<li><a asp-action="logout" asp-controller="Account"><i class="mdi mdi-24px mdi-logout-variant"></i> Logout</a></li>
+			</ul>
+		</nav>
+		<div class="page-content">
+			<header>
+				<h2 class="subheader">@ViewData["title"]</h2>
+			</header>
+			<div class="panel-content">
+				@RenderBody()
+			</div>
+		</div>
+	</div>
+	<script src="~/js/common.min.js"></script>
+</body>
+</html>
+

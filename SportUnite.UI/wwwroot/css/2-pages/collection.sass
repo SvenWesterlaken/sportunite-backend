@@ -1,0 +1,170 @@
+.filter-header
+  background-color: #fff
+  line-height: 1.5rem
+  padding: 10px 20px
+  margin: 0
+  display: block
+  border: 1px solid #e0e0e0
+  font-weight: bold
+  cursor: pointer
+  color: $primarytext
+  
+  &.no-border
+    border: none
+
+
+ul.collapsible, table tbody
+  margin-top: 0
+  border-top: none
+
+  li, tr
+
+    td
+      position: relative
+
+      form.list-action-container
+        position: relative
+        top: 0
+        right: 0
+        transform: none
+
+    .collapsible-header
+      position: relative
+
+    .collapsible-body
+      background: $collapsebackground
+
+      &.children-collection
+        padding: 0
+
+        .collection
+
+          form
+            margin: 0
+
+          .collection-item
+            background: $collapsebackground
+            padding: 1rem
+
+          button.collection-item
+            border-top: none
+            border-left: none
+            border-right: none
+            box-shadow: none
+            display: block
+            text-align: left
+            width: 100%
+            cursor: pointer
+            transition: all 0.3s ease-in-out
+
+            &:hover, &:focus, &:active
+              background: darken($collapsebackground, 20)
+
+
+    i
+      margin-right: 0
+
+    &:hover, &:focus
+      .list-action-container
+        opacity: 1
+        pointer-events: auto
+
+    form.list-action-container
+      opacity: 0
+      pointer-events: none
+      margin-bottom: 0
+      position: absolute
+      right: 16px
+      top: 50%
+      transform: translateY(-50%)
+      display: flex
+      align-items: center
+      justify-content: center
+
+      a
+        color: $secondarytext
+        transition: all 0.3s ease-in-out
+        margin: 0 4px
+
+        &:hover, &:focus, &:active
+          color: $primarytext
+
+      button
+        color: $secondarytext
+        transition: all 0.3s ease-in-out
+        margin: 0 4px
+        padding: 0
+        background: none
+        border: none
+        box-shadow: none
+        cursor: pointer
+
+        &:hover, &:focus, &:active
+          color: $primarytext
+
+.search-wrapper
+  &.card
+    margin: 0
+
+  button
+    position: absolute
+    top: 10px
+    right: 10px
+    cursor: pointer
+    padding: 0
+    margin: 0
+    background: none
+    border: none
+    box-shadow: none
+
+  input[type="text"].searchbar
+    display: block
+    font-size: 16px
+    font-weight: 300
+    width: 100%
+    height: 45px
+    margin: 0
+    box-sizing: border-box
+    padding: 0 45px 0 15px
+    border: 0
+    transition: all 0.3s ease-in-out
+
+    &:focus
+      outline: none
+      box-shadow: none
+      border-bottom: none
+
+.pagination li.active
+  background: $basecolor
+
+tr.tr-edit-delete
+    
+  &:hover, &:focus
+    .list-action-container
+      display: block
+
+  .list-action-container
+    display: none
+
+    a
+      color: $secondarytext
+      transition: all 0.3s ease-in-out
+      margin: 0 4px
+
+      &:hover, &:focus, &:active
+        color: $primarytext
+
+    button
+      color: $secondarytext
+      transition: all 0.3s ease-in-out
+      margin: 0 4px
+      padding: 0
+      background: none
+      border: none
+      box-shadow: none
+
+      &:hover, &:focus, &:active
+        color: $primarytext
+
+
+

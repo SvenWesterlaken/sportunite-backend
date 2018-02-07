@@ -1,0 +1,72 @@
+@model SportUnite.UI.ViewModels.HallOpeningHoursVM
+@{
+    ViewData["Title"] = "Zaal aanmaken";
+} 
+<div class="row">
+    <div class="col s12 l10 xl8 offset-l1 offset-xl2">
+        <div class="card-panel">
+            <form asp-action="AddHall" method="post">
+                @for (int i = 0; i < Model.Buildings.Count(); i++)
+                {
+                    @Html.HiddenFor(Model => Model.Buildings[i].BuildingId)
+                    @Html.HiddenFor(Model => Model.Buildings[i].Name)
+                }
+                <div class="row">
+                    <h5>Gebouw</h5>
+                    <div class="input-field col s12">
+                        @Html.Label("BuildingId", "")
+                        @Html.DropDownListFor(m => m.BuildingId, new SelectList(Model.Buildings, "BuildingId", "Name"), "Kies een gebouw")
+                    </div>
+                </div>
+                <div class="row">
+                    <h5>Zaal</h5>
+                    <div class="input-field col s12">
+                        <label asp-for="Hall.Name">Naam</label>
+                        <input asp-for="Hall.Name" type="text"/>
+                        <span asp-validation-for="Hall.Name" class="red-text"></span>
+                    </div>
+                    <div class="input-field col s12">
+                        <label asp-for="Hall.Size">Grootte</label>
+                        <input asp-for="Hall.Size" type="text"/>
+                        <span asp-validation-for="Hall.Size" class="red-text"></span>
+                    </div>
+                    <div class="input-field col s12">
+                        <label asp-for="Hall.Price">Prijs</label>
+                        <input asp-for="Hall.Price" type="text"/>
+                        <span asp-validation-for="Hall.Price" class="red-text"></span>
+                    </div>
+                    <div class="row checkbox">
+                        <input asp-for="Hall.Available" type="checkbox" class="filled-in" checked="checked"/>
+                        <label asp-for="Hall.Available">Beschikbaar</label>
+                        <span asp-validation-for="Hall.Available" class="red-text"></span>
+                    </div>
+                </div>
+                <h5>Openingstijden</h5>
+                <div class="row">
+                    <div class="input-field col s12">
+                        @for (int i = 0; i < Model.OpeningHours.Count; i++)
+                        {
+                            
+                            @Html.HiddenFor(o => o.OpeningHours[i].Day)
+                            @Html.DisplayFor(o => o.OpeningHours[i].Day)
+                            
+
+                            
+                            <input asp-for="@Model.OpeningHours[i].OpeningTime" type="text" name="@Model.OpeningHours[i].OpeningTime" value="" class="timepicker"/>
+                            <span asp-validation-for="@Model.OpeningHours[i].OpeningTime" class="red-text"></span>
+                 
+                            <input asp-for="@Model.OpeningHours[i].ClosingTime" type="text" name="@Model.OpeningHours[i].ClosingTime" value="" class="timepicker"/>
+                            <span asp-validation-for="@Model.OpeningHours[i].ClosingTime" class="red-text"></span>
+                        }
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12">
+                        <button class="waves-effect btn col s12 m4 right" type="submit">Toevoegen</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

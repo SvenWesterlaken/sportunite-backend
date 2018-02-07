@@ -1,0 +1,63 @@
+﻿@model IPagedList<Sport>
+
+@{
+    ViewData["Title"] = "Sporten";
+}
+
+@if (TempData.ContainsKey("notification"))
+{
+    <div class="notification-hidden-container" data-message="@TempData["notification"]"></div>
+}
+
+<div class="row">
+    <div class="col s12 m5 l5 xl3 offset-l1 offset-xl2">
+        <a asp-action="Add" class="btn btn-block waves-effect btn-full-width btn-middle btn-icon z-depth-1"><i class="mdi mdi-24px mdi-plus-circle"></i><span>Toevoegen</span></a>
+
+    </div>
+    <div class="col s12 m7 l5 xl5">
+        <div class="search-wrapper card">
+            <form method="get">
+                <input type="text" class="searchbar" id="searchString" name="searchString" value="@ViewBag.CurrentFilter" />
+                <button type="submit"><i class="mdi mdi-24px mdi-magnify"></i></button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 l10 xl8 offset-l1 offset-xl2">
+        <div class="z-depth-1">
+            <a class="filter-header" href="@Url.Action("Index", new { sortOrder = ViewBag.NameSortParm, currentFilter=ViewBag.CurrentFilter })">
+                <span>Naam</span>
+                <i class="mdi mdi-24px right waves-effect @(string.IsNullOrEmpty(ViewBag.NameSortParm) ? "mdi-menu-up" : "mdi-menu-down")"></i>
+            </a>
+        </div>
+        <ul class="collapsible" data-collapsible="accordion">
+            @foreach (var p in Model)
+            {
+                <li>
+                    <div class="collapsible-header">@p.Name <form class="list-action-container right"><button asp-action="Delete" asp-route-sportid="@p.SportId" formmethod="post" type="submit"><i class="mdi mdi-24px mdi-delete"></i></button><a href="@Url.Action("Update", new {sportid = p.SportId})"><i class="mdi mdi-24px mdi-pencil"></i></a></form></div>
+                    <div class="collapsible-body">
+                        <ul>
+                            @foreach (var z in p.SportObjectSports)
+                            {
+
+                                <li>@z.SportObject.Name</li>
+
+@*                                <button asp-action="DeleteObject" asp-route-objectid="@z.SportObjectId" formmethod="post" type="submit"><i class="mdi mdi-24px mdi-delete"></i></button>*@
+                                <a asp-action="DeleteObject" asp-route-objectid="@z.SportObjectId" formmethod="post" type="submit"><i class="mdi mdi-24px mdi-delete"></i></a>
+                                <a href="@Url.Action("UpdateObject", new {objectid = z.SportObjectId})"><i class="mdi mdi-24px mdi-pencil"></i></a>
+                            }
+                            <a asp-action="AddObject" asp-route-sportid="@p.SportId" class="waves-effect waves-teal btn-flat">Sportobject Toevoegen</a>
+
+                        </ul>
+
+                    </div>
+                </li>}
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 l10 xl8 offset-l1 offset-xl2">
+        @await Component.InvokeAsync("PageList", new { list = Model, c = "Sport" })
+    </div>
+</div>

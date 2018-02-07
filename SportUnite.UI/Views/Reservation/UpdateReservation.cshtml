@@ -1,0 +1,68 @@
+﻿@using System.Globalization
+@model ReservationModel
+
+@{
+  ViewData["Title"] = "Reservatie Wijzigen";
+}
+<form asp-action="UpdateReservation" method="post">
+	<div class="row">
+		<div class="col s12 l10 xl8 offset-l1 offset-xl2">
+			<div class="card-panel">
+				@Html.HiddenFor(model => model.Reservation.ReservationId)
+				@Html.HiddenFor(model => model.Reservation.SportEventId)
+				<div class="row">
+					<div class="input-field col s12">
+						<select disabled>
+							<option disabled selected>@Model.Reservation.SportEvent.Description</option>
+						</select>
+						<label>Sportevenement</label>
+						@Html.ValidationMessageFor(model => model.Reservation.SportEvent, "", new { @class = "red-text" })
+					</div>
+					<div class="input-field col s12">
+						<label asp-for="Reservation.StartTime"> Datum </label>
+						<input asp-for="Reservation.StartTime" type="text" name="Reservation.StartTime.Date" class="datepicker" placeholder="Kies een datum" value="@(Model.Reservation == null ? "" : Model.Reservation.StartTime.ToString("d MMMM yyyy", new CultureInfo("nl-NL")))" />
+					</div>
+					<div class="input-field col s12">
+						<label asp-for="Reservation.StartTime"> Starttijd </label>
+						<input asp-for="Reservation.StartTime" type="text" name="Reservation.StartTime.Time" class="timepicker" placeholder="Kies een begintijd" value="@(Model.Reservation == null ? "" :Model.Reservation.StartTime.ToString("H:mm", new CultureInfo("nl-NL")))" />
+						@Html.ValidationMessageFor(model => model.Reservation.StartTime, "", new { @class = "red-text" })
+					</div>
+					<div class="input-field col s12">
+						<label asp-for="Reservation.TimeFinish">Eindtijd </label>
+						<input asp-for="Reservation.TimeFinish" type="text" name="Reservation.TimeFinish.Time" class="timepicker" placeholder="Kies een eindtijd" value="@(Model.Reservation == null ? "" : Model.Reservation.TimeFinish.ToString("H:mm", new CultureInfo("nl-NL")))" />
+						@Html.ValidationMessageFor(model => model.Reservation.TimeFinish, "", new { @class = "red-text" })
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<label asp-for="Reservation.Definite"> Definitef </label>
+                   
+						@Html.DropDownListFor(m => m.Reservation.Definite, new List<SelectListItem>
+						{
+                      
+							new SelectListItem {Value = "True", Text = "Ja"},
+							new SelectListItem {Value = "False", Text = "Nee"}
+						})
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col s12 l10 xl8 offset-l1 offset-xl2">
+			<div class="card-panel">
+				@Html.HiddenFor(m => m.Reservation.HallId)
+				<div class="row">
+					<span class="section-headline">Locatie</span>
+					<span class="section">@Model.Reservation.Hall.Building.Address.StreetName @Model.Reservation.Hall.Building.Address.HouseNumber@Model.Reservation.Hall.Building.Address.Suffix</span><br/>
+					<span class="section">@Model.Reservation.Hall.Building.Address.ZipCode @Model.Reservation.Hall.Building.Address.City, @Model.Reservation.Hall.Building.Address.State</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+	<div class="col s12 m5 l5 xl3 offset-l1 offset-xl2">
+		<button class="waves-effect btn col s12 m4" type="submit">Opslaan</button>
+	</div>
+	</div>
+</form>

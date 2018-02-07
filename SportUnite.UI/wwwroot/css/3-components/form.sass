@@ -1,0 +1,24 @@
+input[type="text"].input-validation-error, input[type="email"].input-validation-error, .select-wrapper.input-validation-error input[type="text"].select-dropdown
+  border-bottom: 1px solid $validation-red
+  box-shadow: 0 1px 0 0 $validation-red
+
+input[type="text"]:not(.browser-default):focus:not([readonly])
+  border-bottom: 1px solid $basecolor
+  box-shadow: 0 1px 0 0 $basecolor
+
+[type=checkbox].filled-in:checked+label:after
+  border: 2px solid $basecolor
+  background-color: $basecolor
+
+.panel-content
+  overflow: visible
+
+form p.checkbox
+  padding-left: 0.75rem
+
+[type="checkbox"]
+  display: none
+  visibility: hidden
+
+.switch
+  margin-top: 10px

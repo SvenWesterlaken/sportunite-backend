@@ -1,0 +1,54 @@
+﻿@model ReservationHallsModel
+
+<div class="row">
+	<div class="col s12 l10 xl8 offset-l1 offset-xl2">
+		<div class="search-wrapper card">
+			<form method="get">
+				@Html.HiddenFor(m => m.StartTime)
+				@Html.HiddenFor(m => m.EndTime)
+				@Html.HiddenFor(m => m.ReservationId)
+				<input type="text" class="searchbar" id="searchString" name="searchString" value="@ViewBag.CurrentFilter" />
+				<button type="submit"><i class="mdi mdi-24px mdi-magnify"></i></button>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col s12 l10 xl8 offset-l1 offset-xl2">
+		<div class="z-depth-1">
+			<a class="filter-header" href="@Url.Action("SearchHall", new { sortOrder = ViewBag.NameSortParm, currentFilter=ViewBag.CurrentFilter, startTime=Model.StartTime, endTime=Model.EndTime, eventId=Model.EventId})">
+				<span>Naam</span>
+				<i class="mdi mdi-24px right waves-effect @(string.IsNullOrEmpty(ViewBag.NameSortParm) ? "mdi-menu-up" : "mdi-menu-down")"></i>
+			</a>
+		</div>
+		<ul class="collapsible" data-collapsible="accordion">
+			@foreach (var p in Model.Buildings)
+			{
+					<li>
+						<div class="collapsible-header">@p.Name</div>
+						<div class="collapsible-body children-collection">
+							<div class="collection">
+								@foreach (var z in p.Halls)
+								{
+										<form asp-action="UpdateReservationHall" asp-controller="Reservation" method="post">
+											<input type="hidden" asp-for="EndTime" value="@Model.EndTime" />
+											<input type="hidden" asp-for="StartTime" value="@Model.StartTime" />
+											<input type="hidden" asp-for="HallId" value="@z.HallId" />
+											<input type="hidden" asp-for="ReservationId" value="@Model.ReservationId" />
+											<button class="collection-item" type="submit">@z.Name</button>
+										</form>
+								}
+							</div>
+
+						</div>
+					</li>
+			}
+		</ul>
+	</div>
+</div>
+<div class="row">
+	<div class="col s12 l10 xl8 offset-l1 offset-xl2">
+		@await Component.InvokeAsync("PageList", new { list = Model.Buildings, c = "Building" })
+	</div>
+</div>
+

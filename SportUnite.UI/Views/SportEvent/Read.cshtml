@@ -1,0 +1,167 @@
+﻿@using SportUnite.UI.Models.ViewModels
+@model ReadSportEventViewModel
+
+@{
+	ViewData["Title"] = "Sportevent";
+}
+<div class="read-view">
+	<div class="row">
+		<div class="col s12 m5 l5 xl3">
+			<h4>@Model.SportEventName</h4>
+		</div>
+		<div class="col s12 m5 l5 xl3 vertically-align">
+			<form class="list-action-container left">
+				<a href="@Url.Action("Update", new {sportEventId = Model.SportEventId})"><i class="mdi mdi-24px mdi-pencil"></i></a>
+				<button asp-action="Delete" asp-route-sporteventid="@Model.SportEventId" formmethod="post" type="submit"><i class="mdi mdi-24px mdi-delete"></i></button>
+			</form>
+		</div>
+	</div>
+	
+	<div class="card-panel z-depth-1">
+		<div class="row">
+			<div class="col s12 m5 l5 xl6">
+				<h5>Sport</h5>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12 m5 l5 xl6">
+				@Model.SportName
+			</div>
+		</div>
+		<div class="row">
+			<div class="divider"></div>
+		</div>
+		<div class="row">
+			<h5>Deelnemers</h5>
+		</div>
+		<div class="row">
+			<div class="col s12 m5 l5 xl3">
+				Minimaal aantal Deelnemers: @Model.MinAttendees
+			</div>
+			<div class="col s12 m5 l5 xl3">
+				Maximaal aantal Deelnemers: @Model.MaxAttendees
+			</div>
+		</div>
+		<div class="row">
+			<div class="divider"></div>
+		</div>
+		<div class="row">
+			<div class="col s12 m5 l5 xl6">
+				<h5>Datum</h5>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12 m5 l5 xl6">
+				@Model.SportEventDate
+			</div>
+		</div>
+		<div class="row">
+			<div class="divider"></div>
+		</div>
+		<div class="row">
+			<h5>Tijden</h5>
+		</div>
+		<div class="row">
+			<div class="col s12 m5 l5 xl6">
+				@Model.SportEventEventTime
+			</div>
+		</div>
+		<div class="row">
+			<div class="divider"></div>
+		</div>
+		<div class="row">
+			<div class="col s12 m5 l5 xl6">
+				<h5>Beschrijving</h5>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12 m5 l5 xl6">
+				@Model.SportEventDescription
+			</div>
+		</div>
+		<div class="row">
+			<div class="divider"></div>
+		</div>
+		<div class="row">
+			<div class="divider"></div>
+		</div>
+
+	</div>
+	<div class="row">
+		<div class="col s12 m5 l5 xl3">
+			<h4>Reservering</h4>
+		</div>
+		<div class="col s12 m5 l5 xl3 vertically-align">
+			<form class="list-action-container left">
+				<a href="@Url.Action("UpdateReservation", "Reservation", new {reservationId = Model.ReservationId})"><i class="mdi mdi-24px mdi-pencil"></i></a>
+				<button asp-action="Delete" asp-route-reservationid="@Model.ReservationId" formmethod="post" type="submit"><i class="mdi mdi-24px mdi-delete"></i></button>
+			</form>
+		</div>
+	</div>
+	<div class="card-panel z-depth-1">
+		@if (@Model.Definite != null)
+		{
+
+			<div class="row">
+				<div class="col s12 m5 l5 xl6">
+					<h5>Definitief</h5>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12 m5 l5 xl6">
+					@Model.Definite
+				</div>
+			</div>
+			<div class="row">
+				<div class="divider"></div>
+			</div>
+			<div class="row">
+				<div class="col s12 m5 l5 xl6">
+					<h5>Zaal</h5>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12 m5 l5 xl6">
+					@Model.HallName
+				</div>
+			</div>
+			<div class="row">
+				<div class="divider"></div>
+			</div>
+			<div class="row">
+				<div class="col s12 m5 l5 xl6">
+					<h5>Gebouw</h5>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12 m5 l5 xl6">
+					@Model.BuildingName
+				</div>
+			</div>
+			<div class="row">
+				<div class="divider"></div>
+			</div>
+			<div class="row">
+				<div class="col s12 m5 l5 xl6">
+					<h5>Address</h5>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12 m5 l5 xl6">
+					@Model.BuildingAddress
+				</div>
+			</div>
+			<div class="row">
+				<div class="divider"></div>
+			</div>
+
+		}
+		else
+		{
+			<a href="@Url.Action("AddReservation", "Reservation")" class="btn btn-block btn-middle btn-icon z-depth-1">
+				<i class="mdi mdi-24px mdi-plus-circle"></i><span>Toevoegen</span>
+			</a>
+
+		}
+	</div>
+</div>

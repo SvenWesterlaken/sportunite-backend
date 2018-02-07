@@ -1,0 +1,29 @@
+﻿@model SportObject
+
+@{
+	ViewData["Title"] = "Sportobject Wijzigen";
+}
+
+
+
+<div class="row">
+	<div class="col s12 l10 xl8 offset-l1 offset-xl2">
+		<div class="card-panel">
+			<form asp-action="UpdateObject" method="post">
+				@Html.HiddenFor(model => model.SportObjectId)
+				<div class="row">
+					<div class="input-field col s12">
+						<label asp-for="Name">Objectnaam</label>
+						<input asp-for="Name" type="text" value="@Model.Name" />
+						<span asp-validation-for="Name" class="red-text"></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<button class="waves-effect btn col s12 m4 right" type="submit">Opslaan</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

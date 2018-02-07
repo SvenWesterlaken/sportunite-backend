@@ -1,0 +1,62 @@
+﻿@model Building
+
+@{
+    ViewData["Title"] = "Sportgebouw wijzigen";
+}
+
+<div class="row">
+    <div class="col s12 l10 xl8 offset-l1 offset-xl2">
+        <div class="card-panel">
+            <form asp-action="UpdateBuilding" method="post">
+                @Html.HiddenFor(model => model.BuildingId)
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label asp-for="Name">Naam</label>
+                        <input asp-for="Name" type="text" />
+                        <span asp-validation-for="Name" class="red-text"></span>
+                    </div>
+                    <div class="input-field col s12">
+                        <label asp-for="Address.Country">Land</label>
+                        <input asp-for="Address.Country" type="text" />
+                        <span asp-validation-for="Address.Country" class="red-text"></span>
+                    </div>
+                    <div class="input-field col s12">
+                        <label asp-for="Address.State">Provincie</label>
+                        <input asp-for="Address.State" type="text" />
+                        <span asp-validation-for="Address.State" class="red-text"></span>
+                    </div>
+                    <div class="input-field col s12">
+                        <label asp-for="Address.City">Stad</label>
+                        <input asp-for="Address.City" type="text" />
+                        <span asp-validation-for="Address.City" class="red-text"></span>
+                    </div>
+                    <div class="input-field col s12">
+                        <label asp-for="Address.ZipCode">Postcode</label>
+                        <input asp-for="Address.ZipCode" type="text" />
+                        <span asp-validation-for="Address.ZipCode" class="red-text"></span>
+                    </div>
+                    <div class="input-field col s12">
+                        <label asp-for="Address.StreetName">Straatnaam</label>
+                        <input asp-for="Address.StreetName" type="text" />
+                        <span asp-validation-for="Address.StreetName" class="red-text"></span>
+                    </div>
+                    <div class="input-field col s12">
+                        <label asp-for="Address.HouseNumber">Huisnummer</label>
+                        <input asp-for="Address.HouseNumber" type="text" />
+                        <span asp-validation-for="Address.HouseNumber" class="red-text"></span>
+                    </div>
+                    <div class="input-field col s12">
+                        <label asp-for="Address.Suffix">Toevoeging</label>
+                        <input asp-for="Address.Suffix" type="text" />
+                        <span asp-validation-for="Address.Suffix" class="red-text"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <button class="waves-effect btn col s12 m4 right" type="submit">Opslaan</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

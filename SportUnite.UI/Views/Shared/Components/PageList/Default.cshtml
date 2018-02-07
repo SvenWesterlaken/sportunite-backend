@@ -1,0 +1,28 @@
+﻿@model SportUnite.UI.Models.ViewModels.PageListModel
+
+
+<ul class="pagination right">
+	@if (Model.PagedList.HasPreviousPage)
+	{
+		<li class="waves-effect"><a href="@Url.Action("Index", Model.Controller, new {sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, page = (Model.PagedList.PageNumber - 1)})"><i class="mdi mdi-24px mdi-chevron-left"></i></a></li>
+	}
+	else
+	{
+		<li class="disabled"><a><i class="mdi mdi-24px mdi-chevron-left"></i></a></li>
+	}
+
+	@for (var i = 1; i <= Model.PagedList.PageCount; i++)
+	{
+		<li class="@(Model.PagedList.PageNumber == i ? "active waves-effect" : "waves-effect")"><a href="@Url.Action("Index", Model.Controller, new {sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, page = i})">@i</a></li>
+	}
+
+
+	@if (Model.PagedList.HasNextPage)
+	{
+		<li class="waves-effect"><a href="@Url.Action("Index", Model.Controller, new {sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, page = (Model.PagedList.PageNumber + 1)})"><i class="mdi mdi-24px mdi-chevron-right"></i></a></li>
+	}
+	else
+	{
+		<li class="disabled"><a><i class="mdi mdi-24px mdi-chevron-right"></i></a></li>
+	}
+</ul>

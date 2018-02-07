@@ -1,0 +1,57 @@
+@using System.Globalization
+@model Reservation
+
+@{
+	ViewData["Title"] = "Confirmatie";
+}
+
+<div class="row">
+	<div class="col s12 l10 xl8 offset-l1 offset-xl2">
+		<div class="card-panel card-panel-less-padding">
+			<div class="row">
+				<div class="col s12">
+					<span class="reservation-headline">Reservering voor: <span>@Model.SportEvent.Name</span> </span>
+				</div>
+			</div>
+			<div class="divider"></div>
+			<form method="post" asp-action="SaveReservation">
+				@Html.HiddenFor(m => m.StartTime)
+				@Html.HiddenFor(m => m.TimeFinish)
+				@Html.HiddenFor(m => m.HallId)
+				@Html.HiddenFor(m => m.SportEventId)
+				<div class="row">
+					<div class="col s12">
+						<span class="section-headline">Datum</span>
+						<span class="section">@Model.StartTime.ToString("d MMMM yyyy - H:mm", new CultureInfo("nl-NL")) t/m @Model.TimeFinish.ToString("d MMMM yyyy - H:mm", new CultureInfo("nl-NL"))</span>
+					</div>
+					<div class="col s12">
+						<span class="section-headline">Locatie</span>
+						<span class="section">@Model.Hall.Building.Name - @Model.Hall.Name</span><br/>
+					</div>
+					<div class="col s12">
+						<span class="section-headline">Adres</span>
+						<span class="section">@Model.Hall.Building.Address.StreetName @Model.Hall.Building.Address.HouseNumber@Model.Hall.Building.Address.Suffix</span><br/>
+						<span class="section">@Model.Hall.Building.Address.ZipCode @Model.Hall.Building.Address.City, @Model.Hall.Building.Address.State</span>
+					</div>
+					<div class="col s12">
+						<span class="section-headline">Definitief</span>
+						<div class="switch">
+							<label>
+								Nee
+								@Html.CheckBoxFor(m => m.Definite)
+								<span class="lever"></span>
+								Ja
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12 m4">
+						<button class="waves-effect waves-light btn btn-top-margin" type="submit">Opslaan</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+

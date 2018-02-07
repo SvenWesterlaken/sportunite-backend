@@ -1,0 +1,87 @@
+@model PagedList.Core.IPagedList<Building>
+@{
+    ViewData["Title"] = "Sportgebouwen";
+}
+@if (TempData.ContainsKey("notification")) {
+    <div class="notification-hidden-container" data-message="@TempData["notification"]"></div>
+}
+<div class="row">
+    <div class="col s12 m5 l5 xl3 offset-l1 offset-xl2">
+        <a asp-action="AddBuilding" class="btn btn-block waves-effect btn-full-width btn-middle btn-icon z-depth-1"><i class="mdi mdi-24px mdi-plus-circle"></i><span>Toevoegen</span></a>
+    </div>
+    <div class="col s12 m7 l5 xl5">
+        <div class="search-wrapper card">
+            <form method="get">
+                <input type="text" class="searchbar" id="searchString" name="searchString" value="@ViewBag.CurrentFilter" />
+                <button type="submit"><i class="mdi mdi-24px mdi-magnify"></i></button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 l10 xl8 offset-l1 offset-xl2">
+        <div class="card z-depth-1">
+            <table class="bordered responsive-table">
+                <thead>
+                    <tr>
+                        <th>
+                            <a class="filter-header no-border" href="@Url.Action("Index", new { sortOrder = ViewBag.NameSortParm, currentFilter=ViewBag.CurrentFilter })">
+                                <span>Naam</span>
+                                <i class="mdi mdi-24px right waves-effect @(ViewBag.NameSortParm == "name_desc" ? "mdi-menu-up" : "mdi-menu-down")"></i>
+                            </a>
+                        </th>
+                        <th>Land</th>
+                        <th>Provincie</th>
+                        <th>Stad</th>
+                        <th>Postcode</th>
+                        <th>Straat</th>
+                        <th>Huisnummer</th>
+                        <th>Toevoeging</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Building b in Model) {
+                        <tr class="tr-edit-delete">
+                            <td>
+                                <ul class="collapsible" data-collapsible="accordion">
+                                    <li>
+                                        <div class="collapsible-header">@b.Name</div>
+                                        <div class="collapsible-body">
+                                            <ul>
+                                                @foreach (var h in b.Halls) {
+                                                    <li>
+                                                        @Html.ActionLink(h.Name, "UpdateHall", "Hall", new { id = h.HallId })
+                                                    </li>
+
+                                                }
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    @*}*@
+                                </ul>
+                            </td>
+                            <td>@b.Address.Country</td>
+                            <td>@b.Address.State</td>
+                            <td>@b.Address.City</td>
+                            <td>@b.Address.ZipCode</td>
+                            <td>@b.Address.StreetName</td>
+                            <td>@b.Address.HouseNumber</td>
+                            <td>@b.Address.Suffix</td>
+                            <td>
+                                <form class="list-action-container right">
+                                    <button asp-action="DeleteBuilding" asp-route-buildingid="@b.BuildingId" formmethod="post" type="submit"><i class="mdi mdi-24px mdi-delete"></i></button><a href="@Url.Action("UpdateBuilding", new {id = b.BuildingId})"><i class="mdi mdi-24px mdi-pencil"></i></a>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 l10 xl8 offset-l1 offset-xl2">
+        @await Component.InvokeAsync("PageList", new { list = Model, c = "Building" })
+    </div>
+</div>

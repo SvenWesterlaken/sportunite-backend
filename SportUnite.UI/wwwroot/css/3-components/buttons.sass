@@ -1,0 +1,34 @@
+.btn, .btn:visited
+  background: $basecolor
+  font-weight: 500
+
+  span
+    margin: 0
+    bottom: 3px
+    position: relative
+
+  &.btn-icon span
+    margin-left: 8px
+
+  &:hover, &:focus, &:active
+    background: lighten($basecolor, 15)
+
+  &.btn-middle
+    height: 45px
+    line-height: 45px
+
+  &.btn-full-width
+    width: 100%
+
+  &.btn-inside-table
+    padding: 0
+
+  &.btn-inside-table span
+    bottom: 5px
+    font-size: 0.7em
+
+  &.btn-top-margin
+    margin-top: 15px
+
+.waves-effect.waves-base .waves-ripple
+  background-color: rgba($basecolor, 0.7)

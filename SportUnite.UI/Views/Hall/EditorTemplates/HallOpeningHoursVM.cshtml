@@ -1,0 +1,11 @@
+﻿@model HallOpeningHoursVM
+<div class="input-field col s12">
+    @Html.HiddenFor(s => s.OpeningHoursId)
+    @Html.HiddenFor(s => s.Day)
+    @Html.DisplayFor(s => s.Day)
+    @Html.TextBoxFor(s => s.OpeningTime)
+    @Html.TextBoxFor(s => s.ClosingTime)
+    
+    <input asp-for="OpeningTime" type="text" name="OpeningTime" value="" class="timepicker"/>
+    <span asp-validation-for="OpeningTime" class="red-text"></span>
+</div>

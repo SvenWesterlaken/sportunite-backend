@@ -1,0 +1,114 @@
+﻿@model SportUnite.UI.ViewModels.BuildingHallVM
+@{
+    ViewData["Title"] = "Sportgebouw Toevoegen";
+}
+
+<div class="row">
+    <div class="col s12 l10 xl8 offset-l1 offset-xl2">
+        <form asp-action="AddBuilding" method="post">
+            <div class="card-panel">
+                <div class="row">
+                    <h5>Gebouw</h5>
+                    <div class="input-field col s12">
+                        <label asp-for="Building.Name">Naam</label>
+                        <input asp-for="Building.Name" type="text" />
+                        <span asp-validation-for="Building.Name" class="red-text"></span>
+                    </div>
+                    <div class="input-field col s12">
+                        <label asp-for="Building.Address.Country">Land</label>
+                        <input asp-for="Building.Address.Country" type="text" />
+                        <span asp-validation-for="Building.Address.Country" class="red-text"></span>
+                    </div>
+                    <div class="input-field col s12">
+                        <label asp-for="Building.Address.State">Provincie</label>
+                        <input asp-for="Building.Address.State" type="text" />
+                        <span asp-validation-for="Building.Address.State" class="red-text"></span>
+                    </div>
+                    <div class="input-field col s12">
+                        <label asp-for="Building.Address.City">Stad</label>
+                        <input asp-for="Building.Address.City" type="text" />
+                        <span asp-validation-for="Building.Address.City" class="red-text"></span>
+                    </div>
+                    <div class="input-field col s12">
+                        <label asp-for="Building.Address.ZipCode">Postcode</label>
+                        <input asp-for="Building.Address.ZipCode" type="text" />
+                        <span asp-validation-for="Building.Address.ZipCode" class="red-text"></span>
+                    </div>
+                    <div class="input-field col s12">
+                        <label asp-for="Building.Address.StreetName">Straat</label>
+                        <input asp-for="Building.Address.StreetName" type="text" />
+                        <span asp-validation-for="Building.Address.StreetName" class="red-text"></span>
+                    </div>
+                    <div class="input-field col s12">
+                        <label asp-for="Building.Address.HouseNumber">Huisnummer</label>
+                        <input asp-for="Building.Address.HouseNumber" type="text" />
+                        <span asp-validation-for="Building.Address.HouseNumber" class="red-text"></span>
+                    </div>
+                    <div class="input-field col s12">
+                        <label asp-for="Building.Address.Suffix">Toevoeging</label>
+                        <input asp-for="Building.Address.Suffix" type="text" />
+                        <span asp-validation-for="Building.Address.Suffix" class="red-text"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <h5>Zaal</h5>
+                    <div class="input-field col s12">
+                        <label asp-for="Hall.Name">Naam</label>
+                        <input asp-for="Hall.Name" type="text" />
+                        <span asp-validation-for="Hall.Name" class="red-text"></span>
+                    </div>
+                    <div class="input-field col s12">
+                        <label asp-for="Hall.Size">Grootte</label>
+                        <input asp-for="Hall.Size" type="text" />
+                        <span asp-validation-for="Hall.Size" class="red-text"></span>
+                    </div>
+                    <div class="input-field col s12">
+                        <label asp-for="Hall.Price">Prijs</label>
+                        <input asp-for="Hall.Price" type="text" />
+                        <span asp-validation-for="Hall.Price" class="red-text"></span>
+                    </div>
+                    <div class="row checkbox">
+                        <input asp-for="Hall.Available" type="checkbox" class="filled-in" checked="checked" />
+                        <label asp-for="Hall.Available">Beschikbaar</label>
+                        <span asp-validation-for="Hall.Available" class="red-text"></span>
+                    </div>
+                </div>
+                <h5>Openingstijden</h5>
+                <div class="row">
+                    <div class="input-field col s12">
+                        @for (int i = 0; i < Model.OpeningHours.Count; i++)
+                        {
+
+                            @Html.HiddenFor(o => o.OpeningHours[i].Day)
+                            @Html.DisplayFor(o => o.OpeningHours[i].Day)
+
+
+
+                            <input asp-for="@Model.OpeningHours[i].OpeningTime" type="text" name="@Model.OpeningHours[i].OpeningTime" value="" class="timepicker" />
+                            <span asp-validation-for="@Model.OpeningHours[i].OpeningTime" class="red-text"></span>
+
+                            <input asp-for="@Model.OpeningHours[i].ClosingTime" type="text" name="@Model.OpeningHours[i].ClosingTime" value="" class="timepicker" />
+                            <span asp-validation-for="@Model.OpeningHours[i].ClosingTime" class="red-text"></span>
+                        }
+                    </div>
+                </div>
+
+
+
+@*                @for (int i = 0; i < Model.OpeningHours.Count; i++) {*@
+@*                    <div>*@
+@*                        @Html.HiddenFor(o => o.OpeningHours[i].Day)*@
+@*                        @Html.DisplayFor(o => o.OpeningHours[i].Day)*@
+@*                        @Html.EditorFor(o => o.OpeningHours[i].OpeningTime)*@
+@*                        @Html.EditorFor(o => o.OpeningHours[i].ClosingTime)*@
+@*                    </div>*@
+@*                }*@
+                <div class="row">
+                    <div class="col s12">
+                        <button class="waves-effect btn col s12 m4 right" type="submit">Toevoegen</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+@using Newtonsoft.Json
+@model SportUnite.UI.ViewModels.HallOpeningHoursVM
+@{
+	ViewData["Title"] = "Zaal wijzigen";
+}
+<div class="row">
+	<div class="col s12 l10 xl8 offset-l1 offset-xl2">
+		<div class="card-panel">
+			<form asp-action="UpdateHall" method="post">
+				@Html.HiddenFor(model => model.Hall.HallId)
+				<div class="row">
+					<div class="input-field col s12">
+						<label asp-for="Hall.Name">Naam</label>
+						<input asp-for="Hall.Name" type="text" />
+						<span asp-validation-for="Hall.Name" class="red-text"></span>
+					</div>
+					<div class="input-field col s12">
+						<label asp-for="Hall.Size">Grootte</label>
+						<input asp-for="Hall.Size" type="text" />
+						<span asp-validation-for="Hall.Size" class="red-text"></span>
+					</div>
+					<div class="input-field col s12">
+						<label asp-for="Hall.Price">Prijs</label>
+						<input asp-for="Hall.Price" type="text" />
+						<span asp-validation-for="Hall.Price" class="red-text"></span>
+					</div>
+				    <div class="row checkbox">
+				        <input asp-for="Hall.Available" type="checkbox" class="filled-in" checked="checked" />
+				        <label asp-for="Hall.Available">Beschikbaar</label>
+				        <span asp-validation-for="Hall.Available" class="red-text"></span>
+				    </div>
+				</div>
+
+				<div class="row">
+					<table>
+						<tr>
+						@{
+							int i = 0;
+							foreach (var so in Microsoft.EntityFrameworkCore.Metadata.Internal.Model.SportManager.SportObjects())
+							{
+								if (i++ % 3 == 0)
+								{
+									@:</tr><tr>
+								}
+	
+								@:<td>
+
+								//Check if the SportObjects Collection exists (due to NullReferenceException)
+								if (Model.SportObjects != null)
+								{
+									var match = false;
+									//Check if IDs match
+									foreach (var hso in Model.SportObjects)
+									{
+										if (hso.SportObjectId == so.SportObjectId)
+										{
+											match = true;
+										}
+									}
+
+									if (match)
+									{
+										<input class="filled-in" type="checkbox" name="sportObjects" id="@so.SportObjectId" value="@so.SportObjectId" checked="checked"/>
+									}
+									else
+									{
+										<input class="filled-in" type="checkbox" name="sportObjects" id="@so.SportObjectId" value="@so.SportObjectId"/>
+									}
+									<label for="@so.SportObjectId">@so.Name</label>
+								}
+								else
+								{
+									<input class="filled-in" type="checkbox" name="sportObjects" id="@so.SportObjectId" value="@so.SportObjectId" />
+									<label for="@so.SportObjectId">@so.Name</label>
+								}
+
+								@:</td>
+							}
+							@:</tr>
+						}
+					</table>
+				</div>
+			    @*				@Html.EditorFor(s => s.OpeningHoursVM)*@
+			    <h5>Openingstijden</h5>
+			    <div class="row">
+			        <div class="input-field col s12">
+			            @for ( i = 0; i < Model.OpeningHours.Count; i++)
+			            {
+                            
+			                @Html.HiddenFor(o => o.OpeningHours[i].OpeningHoursId)
+			                @Html.HiddenFor(o => o.OpeningHours[i].Day)
+			                @Html.DisplayFor(o => o.OpeningHours[i].Day)
+
+			                <input asp-for="@Model.OpeningHours[i].OpeningTime" type="text" name="openingTimes" id="@Model.OpeningHours[i].OpeningTime" value="@Model.OpeningHours[i].OpeningTime" class="timepicker"/>
+			                <span asp-validation-for="@Model.OpeningHours[i].OpeningTime" class="red-text"></span>
+                 
+			                <input asp-for="@Model.OpeningHours[i].ClosingTime" type="text" name="closingTimes" id="@Model.OpeningHours[i].ClosingTime" value="@Model.OpeningHours[i].ClosingTime" class="timepicker"/>
+			                <span asp-validation-for="@Model.OpeningHours[i].ClosingTime" class="red-text"></span>
+			            }
+			        </div>
+			    </div>
+				<div class="row">
+					<div class="col s12">
+						<button class="waves-effect btn col s12 m4 right" type="submit">Opslaan</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

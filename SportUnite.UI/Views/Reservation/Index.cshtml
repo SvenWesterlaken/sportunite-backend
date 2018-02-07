@@ -1,0 +1,87 @@
+﻿@using System.Globalization
+@model PagedList.Core.IPagedList<Reservation>
+
+@{
+    ViewData["Title"] = "Reservaties";
+}
+
+
+@if (TempData.ContainsKey("notification")) {
+    <div class="notification-hidden-container" data-message="@TempData["notification"]"></div>
+}
+
+<div class="row">
+    <div class="col s12 m5 l5 xl3 offset-l1 offset-xl2">
+        <a asp-action="AddReservation" class="btn btn-block waves-effect btn-full-width btn-middle btn-icon z-depth-1"><i class="mdi mdi-24px mdi-plus-circle"></i><span>Toevoegen</span></a>
+    </div>
+    <div class="col s12 m7 l5 xl5">
+        <div class="search-wrapper card">
+            <form method="get">
+                <input type="text" class="searchbar" id="searchString" name="searchString" value="@ViewBag.CurrentFilter" />
+                <button type="submit"><i class="mdi mdi-24px mdi-magnify"></i></button>
+            </form>
+        </div>
+    </div>
+</div>
+            <div class="row">
+                <div class="col s12 l10 xl8 offset-l1 offset-xl2">
+                    <div class="card z-depth-1">
+                        <table class="bordered responsive-table">
+                   
+                            <thead>
+                            <tr>
+                                <th> Evenement </th>
+                                <th> Begintijd </th>
+                                <th> Eindtijd </th>
+                                <th> Zaal </th>
+                                <th> Definitief </th>
+                                <th> Acties</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var p in Model)
+                            {
+                                
+                                <tr>
+                                    <td> @p.SportEvent.Name</td>
+                                    <td> @p.StartTime.ToString("d MMMM yyyy - H:mm", new CultureInfo("nl-NL"))</td>
+                                    <td> @p.TimeFinish.ToString("d MMMM yyyy - H:mm", new CultureInfo("nl-NL"))</td>
+ 
+                                    <td> @p.Hall.Name</td>
+                                    @if (p.Definite == true)
+                                    {
+                                        <td>Ja</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Nee</td>
+                                    }
+
+
+                                  
+                                    <td><form class="list-action-container right"><button asp-action="DeleteReservation" asp-route-reservationid="@p.ReservationId" formmethod="post" type="submit"><i class="mdi mdi-24px mdi-delete"></i></button><a href="@Url.Action("ChooseUpdateReservation", new { reservationid = p.ReservationId })"><i class="mdi mdi-24px mdi-pencil"></i></a></form></td>
+                               
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                        
+                   
+            
+           
+
+                       
+        
+    
+
+                    </div>
+                </div>
+            </div>
+
+
+<div class="row">
+    <div class="col s12 l10 xl8 offset-l1 offset-xl2">
+        @await Component.InvokeAsync("PageList", new { list = Model, c = "Reservation" })
+    </div>
+</div>
+   

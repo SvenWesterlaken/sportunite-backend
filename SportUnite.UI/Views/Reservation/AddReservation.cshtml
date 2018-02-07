@@ -1,0 +1,52 @@
+﻿@using System.Globalization
+@model ReservationModel
+
+
+@{
+	ViewData["Title"] = "Reservatie Toevoegen";
+
+}
+
+<div class="row">
+	<div class="col s12 l10 xl8 offset-l1 offset-xl2">
+		<div class="card-panel">
+			<form asp-action="AddReservation" method="post">
+				@Html.HiddenFor(model => model.Reservation.ReservationId)
+				<div class="row">
+					<div class="input-field col s12">
+						<select asp-for="Reservation.SportEventId">
+							<option value="" disabled selected>Selecteer een evenement</option>
+							@foreach (var o in Model.SportEvents)
+							{
+								<option value="@o.SportEventId">@o.Description</option>
+							}
+						</select>
+						<label>Sportevenement</label>
+						@Html.ValidationMessageFor(model => model.Reservation.SportEvent, "", new {@class = "red-text"})
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12">
+						<label asp-for="Reservation.StartTime"> Datum </label>
+						<input asp-for="Reservation.StartTime" type="text" name="Reservation.StartTime.Date" class="datepicker" placeholder="Kies een datum" value="@(Model.Reservation == null ? "" : Model.Reservation.StartTime.ToString("d MMMM yyyy", new CultureInfo("nl-NL")))" />
+					</div>
+					<div class="input-field col s12">
+						<label asp-for="Reservation.StartTime"> Starttijd </label>
+						<input asp-for="Reservation.StartTime" type="text" name="Reservation.StartTime.Time" class="timepicker" placeholder="Kies een begintijd" value="@(Model.Reservation == null ? "" :Model.Reservation.StartTime.ToString("H:mm", new CultureInfo("nl-NL")))" />
+						@Html.ValidationMessageFor(model => model.Reservation.StartTime, "", new { @class = "red-text" })
+					</div>
+					<div class="input-field col s12">
+						<label asp-for="Reservation.TimeFinish">Eindtijd </label>
+						<input asp-for="Reservation.TimeFinish" type="text" name="Reservation.TimeFinish.Time" class="timepicker" placeholder="Kies een eindtijd" value="@(Model.Reservation == null ? "" : Model.Reservation.TimeFinish.ToString("H:mm", new CultureInfo("nl-NL")))" />
+						@Html.ValidationMessageFor(model => model.Reservation.TimeFinish, "", new { @class = "red-text" })
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<button class="waves-effect btn col s12 m4" type="submit">Zoeken naar hal</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

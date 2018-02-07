@@ -1,0 +1,80 @@
+﻿@model PagedList.Core.IPagedList<SportEventViewModel>
+@{
+	ViewData["Title"] = "Sportevenementen";
+}
+
+@if (TempData.ContainsKey("notification"))
+{
+	<div class="notification-hidden-container" data-message="@TempData["notification"]"></div>
+}
+
+<div class="row">
+	<div class="col s12 m5 l5 xl3 offset-l1 offset-xl1">
+		<a asp-action="Add" class="btn btn-block btn-middle btn-icon z-depth-1"><i class="mdi mdi-24px mdi-plus-circle"></i><span>Toevoegen</span></a>
+	</div>
+	<div class="col s12 m7 l5 xl7">
+		<div class="search-wrapper card">
+			<form method="get">
+				<input type="text" class="searchbar" id="searchString" name="searchString" value="@ViewBag.CurrentFilter" />
+				<button type="submit"><i class="mdi mdi-24px mdi-magnify"></i></button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col s12 l10 xl10 offset-l1 offset-xl1">
+		<div class="card z-depth-1">
+			<table class="bordered responsive-table">
+				<thead>
+					<tr>
+						<th>
+							<a class="filter-header no-border" href="@Url.Action("Index", new { sortOrder = ViewBag.NameSortParm, currentFilter=ViewBag.CurrentFilter })">
+								<span>Naam</span>
+								<i class="mdi mdi-24px right waves-effect @(ViewBag.NameSortParm == "name_desc" ? "mdi-menu-up" : "mdi-menu-down")"></i>
+							</a>
+						</th>
+						<th>Sport</th>
+						<th>
+							<a class="filter-header no-border" href="@Url.Action("Index", new { sortOrder = ViewBag.DateSortParm, currentFilter=ViewBag.CurrentFilter })">
+								<span>Datum</span>
+								<i class="mdi mdi-24px right waves-effect @(string.IsNullOrEmpty(ViewBag.DateSortParm) || ViewBag.DateSortParm ==  "Date" ? "mdi-menu-up" : "mdi-menu-down")"></i>
+							</a>
+						</th>
+						<th>Min. Deelnemers</th>
+						<th>Max. Deelnemers</th>
+						<th>Reservering</th>
+						<th>Read/Edit/Delete</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (SportEventViewModel se in Model)
+					{
+
+						<tr class="tr-edit-delete">
+							<td>@se.Name</td>
+							<td>@se.Sport.Name</td>
+							<td>@se.SportEventDate</td>
+							<td>@se.MinAttendees</td>
+							<td>@se.MaxAttendees</td>
+							<td>@(se.HasReservation ? "aanwezig" : "leeg")</td>
+							<td>
+								<form class="list-action-container left">
+									<a href="@Url.Action("Read", new { sportEventId = se.SportEventId })"><i class="mdi mdi-24px mdi-magnify"></i></a>
+									<a href="@Url.Action("Update", new {sportEventId = se.SportEventId})"><i class="mdi mdi-24px mdi-pencil"></i></a>
+									<button asp-action="Delete" asp-route-sporteventid="@se.SportEventId" formmethod="post" type="submit"><i class="mdi mdi-24px mdi-delete"></i></button>
+								</form>
+							</td>
+						</tr>
+					}
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col s12 l10 xl8 offset-l1 offset-xl2">
+		@await Component.InvokeAsync("PageList", new { list = Model, c = "SportEvent" });
+	</div>
+</div>

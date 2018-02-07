@@ -1,0 +1,17 @@
+.clockpicker-canvas line
+  stroke: $basecolor
+
+.clockpicker-canvas-bearing, .clockpicker-canvas-bg
+  stroke: $basecolor
+  fill: $basecolor
+
+input
+  &::-webkit-calendar-picker-indicator
+    display: none
+
+  &[type="date"]::-webkit-input-placeholder
+    visibility: hidden !important
+
+  &::-webkit-outer-spin-button, &::-webkit-inner-spin-button, &::-webkit-clear-button
+    -webkit-appearance: none
+    margin: 0

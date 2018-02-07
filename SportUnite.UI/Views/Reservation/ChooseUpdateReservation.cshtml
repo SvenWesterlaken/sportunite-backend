@@ -1,0 +1,11 @@
+@model ReservationUpdateModel
+
+<div class="row">
+	<div class="col s12 l10 xl8 offset-l1 offset-xl2 z-depth-1 no-padding">
+		<div class="collection">
+			<a href="@Url.Action("UpdateReservation", new { reservationId = Model.ReservationId})" class="collection-item">Wijzig alleen reservering gegevens</a>
+			<a href="@Url.Action("SearchUpdateHall", "Building", new { reservationId = Model.ReservationId, startTime = Model.StartTime, endTime = Model.EndTime})" class="collection-item">Wijzig ook de zaal van de reservering</a>
+		</div>
+	</div>
+</div>
+
